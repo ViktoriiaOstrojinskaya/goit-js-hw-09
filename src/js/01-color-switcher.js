@@ -12,11 +12,11 @@ startBnt.addEventListener('click', onStartBtn);
 function onStartBtn() {
   timeId = setInterval(() => {
     body.style.backgroundColor = getRandomHexColor();
-    console.log('Start');
+    startBnt.disabled = true;
   }, 1000);
 }
 
 stopBtn.addEventListener('click', () => {
   clearInterval(timeId);
-  console.log('Stop');
+  startBnt.disabled = false;
 });
