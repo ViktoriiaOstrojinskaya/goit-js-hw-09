@@ -3,7 +3,6 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 const buttonStart = document.querySelector('button[data-start]');
 console.log(buttonStart);
-console.log('ffff');
 
 const fp = flatpickr('#datetime-picker', {
   enableTime: true,
