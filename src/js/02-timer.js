@@ -18,34 +18,37 @@ Notify.init({
 });
 
 refs.buttonStart.disabled = true;
-let chosenDate = 0;
+let timerId = null;
 
 const fp = flatpickr(refs.input, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+
   onClose(selectedDates) {
-    chosenDate = selectedDates[0].getTime();
-    if (chosenDate < new Date()) {
-      Notify.failure('Please choose a date in the future');
-      this.enableTime = false;
-    } else {
+    if (selectedDates[0] - new Date() > 0) {
       refs.buttonStart.disabled = false;
+    } else {
+      this.enableTime = false;
+      Notify.failure('Please choose a date in the future');
     }
   },
 });
 
-refs.buttonStart.addEventListener('click', onTimer);
+refs.buttonStart.addEventListener('click', onStartTimer);
 
-function onTimer() {
-  const timerId = setInterval(() => {
-    differenceMs = chosenDate - new Date();
+function onStartTimer() {
+  chosenDate = fp.selectedDates[0].getTime();
+
+  timerId = setInterval(() => {
+    const differenceMs = chosenDate - new Date();
     const timer = convertMs(differenceMs);
+    refs.buttonStart.disabled = true;
 
     if (differenceMs <= 0) {
-      clearInterval(timerId);
       Notify.success('Timer completed!');
+      clearInterval(timerId);
       return;
     }
 
