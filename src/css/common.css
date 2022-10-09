@@ -16,3 +16,24 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.field {
+  display: inline-grid;
+  justify-items: center;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.field:not(:last-child) {
+  margin-right: 15px;
+}
+
+.value {
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+}
