@@ -14,13 +14,11 @@ const refs = {
 Notify.init({
   width: '300px',
   position: 'right-top',
-  closeButton: true,
-  timeout: 1500,
+  timeout: 2500,
 });
 
 refs.buttonStart.disabled = true;
 let chosenDate = 0;
-let differenceMs = 0;
 
 const fp = flatpickr(refs.input, {
   enableTime: true,
@@ -38,13 +36,22 @@ const fp = flatpickr(refs.input, {
   },
 });
 
-refs.buttonStart.addEventListener('click', () => {
-  setInterval(() => {
+refs.buttonStart.addEventListener('click', onTimer);
+
+function onTimer() {
+  const timerId = setInterval(() => {
     differenceMs = chosenDate - new Date();
     const timer = convertMs(differenceMs);
+
+    if (differenceMs <= 0) {
+      clearInterval(timerId);
+      Notify.success('Timer completed!');
+      return;
+    }
+
     updateTimer(timer);
   }, 1000);
-});
+}
 
 function convertMs(ms) {
   const second = 1000;
