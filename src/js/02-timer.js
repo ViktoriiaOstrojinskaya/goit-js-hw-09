@@ -39,7 +39,7 @@ const fp = flatpickr(refs.input, {
 refs.buttonStart.addEventListener('click', onStartTimer);
 
 function onStartTimer() {
-  chosenDate = fp.selectedDates[0].getTime();
+  const chosenDate = fp.selectedDates[0].getTime();
 
   timerId = setInterval(() => {
     const differenceMs = chosenDate - new Date();
