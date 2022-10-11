@@ -9,16 +9,11 @@ form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(event) {
   event.preventDefault();
+  const { delay, step, amount } = event.currentTarget.elements;
 
-  const getValue = {
-    delay: Number(firstDelay.value),
-    step: Number(delayStep.value),
-    amount: Number(amount.value),
-  };
-
-  for (let i = 1; i <= getValue.amount; i += 1) {
-    getValue.delay += getValue.step;
-    createPromise(i, getValue.delay).then(onSuccess).catch(onError);
+  for (let i = 1; i <= amount.value; i += 1) {
+    delay.value += step.value;
+    createPromise(i, delay.value).then(onSuccess).catch(onError);
     form.reset();
   }
 }
